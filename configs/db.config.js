@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const DB_NAME = 'phone-store';
+const DB_NAME = 'timecare-api';
 const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost/${DB_NAME}`;
 
 mongoose.Promise = Promise;
