@@ -17,6 +17,7 @@ require('./configs/passport.config').setup(passport);
 
 const usersRoutes = require('./routes/users.routes');
 const sessionRoutes = require('./routes/session.routes');
+const eventRoutes = require('./routes/event.routes');
 
 const app = express();
 app.use(cors(corsConfig))
@@ -57,6 +58,7 @@ app.use((req, res, next) => {
 
 app.use('/users', usersRoutes);
 app.use('/session', sessionRoutes);
+app.use('/event', eventRoutes);
 // catch 404 and forward to error handler
 app.use((req, res, next)  => {
   const error = new Error('Not Found');
