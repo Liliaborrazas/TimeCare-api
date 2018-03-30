@@ -1,49 +1,40 @@
 const mongoose = require('mongoose');
 require('../configs/db.config');
-const User = require('../models/user.model');
+const Event = require('../models/event.model');
 
-User.remove({}).then(() => { console.log("Users removed") });
+// Event.remove({}).then(() => { console.log("Event removed") });
 
-var users = [
+var event = [
     {
-        email: "julio@julio.com",
-        name: "Julio",
-        password: "123",
-        role: "carer"
+        title: "meetup",
+        description: "maximo 4 niños",
+        price: 50,
+        days:"Monday",
+        startTime: 9,
+        endTime: 15
     },
     {
-        email: "lily@gmail.com",
-        name: "Lily",
-        password: "12344",
-        role: "parent"
+        title: "metoo",
+        description: "cuido niños entre 0 a 3 años",
+        price: 50,
+        days:"Tuesday",
+        startTime: 8,
+        endTime: 14
     },
     {
-        email: "cowa@cowa.com",
-        name: "Cowa",
-        password: "12323",
-        role: "parent"
-    },
-    {
-        email: "pepe@pepe.com",
-        name:"Pepe",
-        password: "11111",
-        role: "carer"
-    },
-    {
-        email: "alva@alva.com",
-        name: "Alvaro",
-        password: "111112",
-        role: "carer"
-    },
-    {
-        email: "tito@tito.com",
-        name: "Tito",
-        password: "2222",
-        role: "parent"
+        title: "time",
+        description: "cuido niños entre 3 a 6 años",
+        price: 50,
+        days:"Tuesday",
+        startTime: 13,
+        endTime: 18
     }
+    
+
+    
 ]
 
-User.create(users)
+Event.create(event)
   .then(() => {
     console.info("Seeds success!");
     mongoose.connection.close();

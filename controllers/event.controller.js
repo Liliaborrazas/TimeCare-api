@@ -9,7 +9,7 @@ module.exports.list = (req, res, next) => {
   
 }
 
-module.exports.get = (req, res, next) => {
+/*module.exports.get = (req, res, next) => {
   const id = req.params.id;
   Event.findById(id)
     .then(event => {
@@ -19,13 +19,15 @@ module.exports.get = (req, res, next) => {
         next(new ApiError(`Event not found`, 404));
       }
     }).catch(error => next(error));
-}
+}*/
 
-module.exports.create = (req, res, next) => {
+/*module.exports.create = (req, res, next) => {
   const event = new Event(req.body);
   event.save()
+  console.log("save")
     .then(() => {
       res.status(201).json(event);
+      console.log("ten")
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -35,4 +37,4 @@ module.exports.create = (req, res, next) => {
         next(new ApiError(error.message, 500));
       }
     })
-}
+}*/
