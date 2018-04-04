@@ -6,6 +6,8 @@
     const secureMiddleware = require('../middleware/secure.middleware');
     
     router.get('/',secureMiddleware.isAuthenticated, eventController.list);
-    //router.get('/:id', secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.get);
-    //router.post('/', secureMiddleware.isAuthenticated, eventController.create);
+    router.get('/:id', secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.get);
+    router.post('/', secureMiddleware.isAuthenticated, eventController.create);
+    router.delete('/:id', secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.delete);
+    router.put('/:id', secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.edit);
     module.exports = router;
