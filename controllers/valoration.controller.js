@@ -21,7 +21,7 @@ module.exports.create = (req, res, next) => {
   }
 
   module.exports.edit = (req, res, next) => {
-    const id = req.params.id;
+    const {id} = req.params;
     if (req.file) {
       body.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     }
@@ -43,7 +43,7 @@ module.exports.create = (req, res, next) => {
   }
 
   module.exports.delete = (req, res, next) => {
-    const id = req.params.id;
+    const {id} = req.params;
     Valoration.findByIdAndRemove(id)
       .then(valoration => {
         if (valoration) {

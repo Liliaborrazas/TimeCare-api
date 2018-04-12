@@ -6,7 +6,6 @@ module.exports.list = (req, res, next) => {
     Event.find()
     .then(event => res.json(event))
     .catch(error => next(error));
-  
 }
 
 module.exports.get = (req, res, next) => {
@@ -20,7 +19,6 @@ module.exports.get = (req, res, next) => {
       }
     }).catch(error => next(error));
 }
-
 
 module.exports.create = (req, res, next) => {
   const event = new Event(req.body);
@@ -55,7 +53,10 @@ module.exports.edit = (req, res, next) => {
   if (req.file) {
     body.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
   }
-  
+  // TODO: Crear un objeto con los parámetros que necesito de req.body
+  // Añadir el objeto como parámetro en el update
+  // const {name, surname, title} = req.body
+  // const updates = {name, surname, title};
   Event.findByIdAndUpdate(id, { $set: req.body }, { new: true })
     .then(event => {
       if (event) {

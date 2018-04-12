@@ -4,20 +4,24 @@ const mongoose = require('mongoose');
 const eventSchema = new mongoose.Schema({
     title: {
       type: String,
-      required: [true, 'The title is required']
+      
     },
     description: {
       type: String
     },
 
     price: {
-        type: Number,
+        type: Number
         
       },
       days: [{
-        type: String,
-        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        type: Date
+      
       }],
+      image: {
+        type: String,
+        default: ''
+    },
 
       startTime: {
         type: Number,

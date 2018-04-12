@@ -3,11 +3,14 @@ const User = require('../models/user.model');
 const ApiError = require('../models/api-error.model');
 
 module.exports.create = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  console.log('llego');
+  req.body.role = req.body.role.toLowerCase();
+  User.findOne({
+      email: req.body.email
+    })
     .then(user => {
-      if (user) {
-        next(new ApiError('User already registered', 400));
-      } else {
+      console.log('then');
+      if (!user) {
         user = new User(req.body);
         user.save()
           .then(() => {
@@ -16,10 +19,11 @@ module.exports.create = (req, res, next) => {
           .catch(error => {
             if (error instanceof mongoose.Error.ValidationError) {
               next(new ApiError(error.message, 400, error.errors));
-            } else {
-              next(error);
             }
+            next(error);
           });
+      } else {
+        next(new ApiError('User already registered', 400));
       }
     }).catch(error => next(new ApiError('User already registered', 500)));
 }

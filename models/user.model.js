@@ -26,29 +26,14 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['carer', 'parent'],
-
     },
     image: {
         type: String,
         default: ''
     },
     city: {
-        type: String,
-        
-    },
-    price:{
-        type: Number,
-        default: 0,
-        
-    },
-    description:{
-        type: String,
-        
-    },
-    rating:{
-        type: Number,
+        type: String
     }
-
 }, 
 { timestamps: true,
     toJSON: {
