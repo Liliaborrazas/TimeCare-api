@@ -69,3 +69,14 @@ module.exports.edit = (req, res, next) => {
       }
     });
 }
+module.exports.delete = (req, res, next) => {
+  const {id} = req.params;
+  User.findByIdAndRemove(id)
+    .then(user => {
+      if (user) {
+        res.status(204).json()
+      } else {
+        next(new ApiError(`User not found`, 404));
+      }
+    }).catch(error => next(error));
+}
