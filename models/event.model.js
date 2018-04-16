@@ -18,17 +18,15 @@ const eventSchema = new mongoose.Schema({
         type: Date
       
       }],
-      image: {
-        type: String,
-        default: ''
-    },
+      
+
 
       startTime: {
-        type: Number,
+        type: String,
         required: [true, 'Start time is required']
       },
       endTime: {
-        type: Number,
+        type: String,
         required: [true, 'End time is required']
       },
     }, { 

@@ -27,3 +27,45 @@ module.exports.create = (req, res, next) => {
       }
     }).catch(error => next(new ApiError('User already registered', 500)));
 }
+
+module.exports.list = (req, res, next) => {
+  User.find()
+  .then(user => res.json(user))
+  .catch(error => next(error));
+}
+
+module.exports.get = (req, res, next) => {
+const id = req.params.id;
+User.findById(id)
+  .then(user => {
+    if (user) {
+      res.json(user)
+    } else {
+      next(new ApiError(`User not found`, 404));
+    }
+  }).catch(error => next(error));
+}
+module.exports.edit = (req, res, next) => {
+  const id = req.params.id;
+  if (req.file) {
+    body.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  }
+  // TODO: Crear un objeto con los parámetros que necesito de req.body
+  // Añadir el objeto como parámetro en el update
+  // const {name, surname, title} = req.body
+  // const updates = {name, surname, title};
+  User.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+    .then(user => {
+      if (user) {
+        res.json(user)
+      } else {
+        next(new ApiError(`User not found`, 404));
+      }
+    }).catch(error => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        next(new ApiError(error.message, 400, error.errors));
+      } else {
+        next(new ApiError(error.message, 500));
+      }
+    });
+}
