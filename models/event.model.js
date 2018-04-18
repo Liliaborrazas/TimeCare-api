@@ -14,21 +14,32 @@ const eventSchema = new mongoose.Schema({
         type: Number
         
       },
-      days: [{
-        type: Date
-      
+    days: [{
+      type: Date
+    
+    }],
+
+    valorations: {
+      type:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Valoration'
       }],
+      default: [],
+    },
       
+    creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
 
+    startTime: {
+      type: String
+    },
 
-      startTime: {
-        type: String,
-        required: [true, 'Start time is required']
-      },
-      endTime: {
-        type: String,
-        required: [true, 'End time is required']
-      },
+    endTime: {
+      type: String
+    }
+   
     }, { 
         timestamps: true,
         toJSON: {

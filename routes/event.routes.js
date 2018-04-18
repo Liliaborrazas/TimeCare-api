@@ -10,5 +10,5 @@
     router.post('/', secureMiddleware.isAuthenticated, eventController.create);
     router.delete('/:id', secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.delete);
     router.put('/:id', secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.edit);
-    
+    router.post('/:id/valorate',secureMiddleware.isAuthenticated, eventMiddleware.checkValidId, eventController.addValoration); 
     module.exports = router;

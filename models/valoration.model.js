@@ -35,8 +35,12 @@ const valorationSchema = new mongoose.Schema({
     description: {
       type: String
     },
-
-    userId: {
+    userCreator: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required: true
+    },
+    userRating: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
         required: true

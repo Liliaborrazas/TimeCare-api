@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Event = require('../models/event.model');
+const Valoration = require('../models/valoration.model');
 const ApiError = require('../models/api-error.model');
 
 module.exports.list = (req, res, next) => {
@@ -11,6 +12,7 @@ module.exports.list = (req, res, next) => {
 module.exports.get = (req, res, next) => {
   const id = req.params.id;
   Event.findById(id)
+    .populate("valorations")
     .then(event => {
       if (event) {
         res.json(event)
@@ -21,6 +23,7 @@ module.exports.get = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
+  console.log("Entro al create");
   const event = new Event(req.body);
   event.save()
   .then(() => {
@@ -71,4 +74,53 @@ module.exports.edit = (req, res, next) => {
         next(new ApiError(error.message, 500));
       }
     });
+}
+
+
+// { $push: { 'valorations': valoration._id }}
+
+module.exports.addValoration = (req, res, next) => {
+  const { description, generalRating, valorationPrice, punctuality, trust, userRating} = req.body;
+  //const newValoration = new Valoration(req.body.)
+  // Recives un req.body con la valoracion y la id del evento
+  const eventId = req.params.id;
+  Event.findById(eventId)
+    .then(event => {
+      const userCreator = event.creator;
+      console.log(event);
+      const options = {
+        generalRating,
+        description,
+        valorationPrice,
+        punctuality,
+        trust, 
+        userCreator,
+        userRating
+      };
+
+
+      const newValoration = new Valoration(options);
+
+      newValoration.save()
+        .then(valoration => {
+          Event.findByIdAndUpdate( eventId, { $push: { 'valorations': valoration._id } })
+            .then(eventUpdated => {
+              res.status(201).json(eventUpdated)
+            })
+            .catch(error => {
+              if (error instanceof mongoose.Error.ValidationError) {
+                next(new ApiError(error.errors));
+              } else {
+                next(new ApiError(error.message, 500));
+              }
+            })
+        })
+        .catch(error => {
+          if (error instanceof mongoose.Error.ValidationError) {
+            next(new ApiError(error.errors));
+          } else {
+            next(new ApiError(error.message, 500));
+          }
+        })
+    })
 }
