@@ -2,8 +2,10 @@ const passport = require('passport');
 const ApiError = require('../models/api-error.model');
 
 module.exports.create = (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  // const email = req.body.email;
+  // const password = req.body.password;
+  // TODO: Usar mas destructuring !!! 
+  const {email, password} = req.body;
 
   if (!email || !password) {
     next(new ApiError('Email and password are required'));
