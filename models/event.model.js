@@ -38,6 +38,9 @@ const eventSchema = new mongoose.Schema({
 
     endTime: {
       type: String
+    },
+    email: {
+      type: String
     }
    
     }, { 

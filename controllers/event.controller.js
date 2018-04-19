@@ -80,26 +80,30 @@ module.exports.edit = (req, res, next) => {
 // { $push: { 'valorations': valoration._id }}
 
 module.exports.addValoration = (req, res, next) => {
-  const { description, generalRating, valorationPrice, punctuality, trust, userRating} = req.body;
+  const creator = req.user && req.user._id;
+  const ratedUser = req.params && req.params.id;
+  const { 
+    description, 
+    generalRating, 
+    valorationPrice, 
+    punctuality, 
+    trust, 
+  } = req.body;
   //const newValoration = new Valoration(req.body.)
   // Recives un req.body con la valoracion y la id del evento
   const eventId = req.params.id;
   Event.findById(eventId)
     .then(event => {
-      const userCreator = event.creator;
-      console.log(event);
-      const options = {
+      const valorationBody = {
         generalRating,
         description,
         valorationPrice,
         punctuality,
         trust, 
-        userCreator,
-        userRating
+        creator,
+        ratedUser
       };
-
-
-      const newValoration = new Valoration(options);
+      const newValoration = new Valoration(valorationBody);
 
       newValoration.save()
         .then(valoration => {
