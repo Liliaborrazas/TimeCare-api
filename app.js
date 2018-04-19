@@ -23,7 +23,8 @@ const eventRoutes = require('./routes/event.routes');
 const valorationRoutes = require('./routes/valoration.routes');
 
 const app = express();
-app.use(cors(corsConfig))
+// app.use(cors(corsConfig))
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

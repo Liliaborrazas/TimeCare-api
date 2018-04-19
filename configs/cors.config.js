@@ -1,6 +1,7 @@
 const originsAllowed = process.env.CORS_ORIGINS || [
     'http://localhost:3000',
-    'http://localhost:4200'
+    'http://localhost:4200',
+    'https://timecare.netlify.com'
 ];
 
 module.exports = {
